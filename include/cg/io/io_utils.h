@@ -1,15 +1,23 @@
+
 #pragma once
 
 #include <iostream>
 
-namespace cg {
-namespace io {
+namespace cg
+{
+    namespace io
+    {
+        inline std::istream & skip_char(std::istream & in,
+                                        char           ch)
+        {
+            char c;
 
-   inline std::istream & skip_char(std::istream & in, char ch)
-   {
-      char c;
-      while ((in >> c) && (c != ch));
-      return in;
-   }
+            while ((in >> c) && (c != ch));
 
-}}
+            return in;
+        }
+    }
+}
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

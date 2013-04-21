@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <boost/random.hpp>
@@ -7,7 +8,6 @@
 inline std::vector<cg::point_2> uniform_points(size_t count)
 {
     util::uniform_random_real<double> rand(-100., 100.);
-
     std::vector<cg::point_2> res(count);
 
     for (size_t l = 0; l != count; ++l)
@@ -18,3 +18,6 @@ inline std::vector<cg::point_2> uniform_points(size_t count)
 
     return res;
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com
