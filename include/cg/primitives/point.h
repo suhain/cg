@@ -116,5 +116,12 @@ namespace cg
 
         return res;
     }
+    
+    template<class Scalar>
+    void swap(point_2t<Scalar> & a, point_2t<Scalar> & b)
+    {
+        std::swap(a.x, b.x);
+        std::swap(a.y, b.y);
+    }
 }
 

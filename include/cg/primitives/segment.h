@@ -33,6 +33,13 @@ namespace cg
     private:
         boost::array<point_2t<Scalar>, 2 > pts_;
     };
+    
+    template<class Scalar>
+    void swap(segment_2t<Scalar> & a, segment_2t<Scalar> & b)
+    {
+        swap(a[0], b[0]);
+        swap(a[1], b[1]);
+    }
 
     template <class Scalar>
     point_2t<Scalar> const & min(segment_2t<Scalar> const & seg)

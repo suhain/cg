@@ -1,4 +1,3 @@
-
 #include <gtest/gtest.h>
 #include <cg/operations/has_intersection/segment_segment.h>
 #include <cg/operations/has_intersection/triangle_segment.h>

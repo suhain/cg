@@ -1,4 +1,3 @@
-
 #include <gtest/gtest.h>
 #include <cg/operations/contains/segment_point.h>
 #include <cg/operations/contains/triangle_point.h>

@@ -1,8 +1,10 @@
-
 #pragma once
 
 #include <cg/primitives/segment.h>
+#include <cg/primitives/point.h>
 #include <cg/operations/orientation.h>
+#include <cg/operations/contains/segment_point.h>
+#include <boost/optional.hpp>
 
 namespace cg
 {
@@ -34,5 +36,26 @@ namespace cg
         }
 
         return ab[0] != ab[1];
+    }
+    
+    inline boost::optional<point_2> intersection(segment_2 a, segment_2 b)
+    {
+        if (!has_intersection(a, b)) 
+            return boost::none;
+        if (a[1].y == a[0].y) {
+            swap(a, b);
+        }
+        double A1 = a[1].y - a[0].y;
+        double B1 = a[0].x - a[1].x;
+        double C1 = a[0].y * a[1].x - a[0].x * a[1].y;
+        
+        double A2 = b[1].y - b[0].y;
+        double B2 = b[0].x - b[1].x;
+        double C2 = b[0].y * b[1].x - b[0].x * b[1].y;
+        
+        double k = A1 / A2;
+        double y = (-C1 + k * C2) / (B1 - k * B2);
+        double x = (-B1 * y - C1) / A1;
+        return point_2(x, y);
     }
 }

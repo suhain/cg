@@ -4,6 +4,7 @@
 #include <cg/convex_hull/graham.h>
 #include <cg/convex_hull/andrew.h>
 #include <cg/operations/contains/segment_point.h>
+#include <cg/operations/orientation.h>
 #include <cg/io/point.h>
 #include "random_utils.h"
 
@@ -16,13 +17,13 @@ bool is_convex_hull(FwdIter p,
     {
         for (FwdIter b = p; b != q; ++b)
         {
-            switch (orientation(*t, *s, *b))
+            switch (cg::orientation(*t, *s, *b))
             {
                 case cg::CG_RIGHT:
                     return false;
 
                 case cg::CG_COLLINEAR:
-                    return collinear_are_ordered_along_line(*t, *b, *s);
+                    return cg::collinear_are_ordered_along_line(*t, *b, *s);
 
                 case cg::CG_LEFT:
                     continue;
@@ -36,41 +37,18 @@ bool is_convex_hull(FwdIter p,
 TEST(convex_hull,
         simple)
 {
-    using cg::point_2;
-
-    std::vector<point_2> pts = boost::assign::list_of(point_2(0, 0))(point_2(1, 0))(point_2(0, 1))(point_2(2,
-            0))(point_2(0, 2))(point_2(3, 0));
+    std::vector<cg::point_2> pts = boost::assign::list_of(cg::point_2(0, 0))(cg::point_2(1, 0))(cg::point_2(0, 1))(cg::point_2(2,
+            0))(cg::point_2(0, 2))(cg::point_2(3, 0));
 
     EXPECT_TRUE(is_convex_hull(pts.begin(), cg::graham_hull(pts.begin(), pts.end()), pts.end()));
-}
-
-TEST(convex_hull,
-        uniform_graham)
-{
-    using cg::point_2;
-
-    std::vector<point_2> pts = uniform_points(100000);
-
-    EXPECT_TRUE(is_convex_hull(pts.begin(), cg::graham_hull(pts.begin(), pts.end()), pts.end()));
-}
-
-TEST(convex_hull,
-        uniform_andrew)
-{
-    using cg::point_2;
-
-    std::vector<point_2> pts = uniform_points(100000);
-
     EXPECT_TRUE(is_convex_hull(pts.begin(), cg::andrew_hull(pts.begin(), pts.end()), pts.end()));
 }
 
 TEST(convex_hull,
-        andrew_simple)
+        uniform)
 {
-    using cg::point_2;
+    std::vector<cg::point_2> pts = uniform_points(10000000);
 
-    std::vector<point_2> pts = boost::assign::list_of(point_2(0, 0))(point_2(1, 1))(point_2(0, 3))(point_2(3,
-            0));
-
+    EXPECT_TRUE(is_convex_hull(pts.begin(), cg::graham_hull(pts.begin(), pts.end()), pts.end()));
     EXPECT_TRUE(is_convex_hull(pts.begin(), cg::andrew_hull(pts.begin(), pts.end()), pts.end()));
 }
